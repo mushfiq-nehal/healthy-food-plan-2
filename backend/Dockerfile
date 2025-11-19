@@ -16,7 +16,7 @@ RUN uv venv /opt/venv && \
     alembic \
     coverage \
     fastapi[standard] \
-    psycopg2 \
+    psycopg2-binary \
     pyjwt \
     pytest \
     sqlmodel
@@ -37,7 +37,6 @@ WORKDIR /app
 # Copy application code
 COPY alembic.ini .
 COPY app/ ./app/
-COPY scripts/ ./scripts/
 
 # Set environment variables
 ENV PATH="/opt/venv/bin:$PATH" \
