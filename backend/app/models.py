@@ -4,12 +4,30 @@ import uuid
 
 
 class UserBase(SQLModel):
-    username: str = Field(default=None, index=True, max_length=50)
-    email: EmailStr = Field(default=None, index=True, max_length=100)
+    username: str = Field(default=None, unique=True, index=True, max_length=50)
+    email: EmailStr = Field(default=None, unique=True, index=True, max_length=100)
+    full_name: str | None = Field(default=None, max_length=100)
+    is_active: bool = Field(default=True)
+    is_superuser: bool = Field(default=False)
+    account_type: str | None = Field(default=None, max_length=50)
+    housing_size: int = Field(default=1, ge=1, le=100)
+    budget_pref: float = Field(default=0.0, ge=0.0)
+    dietary_pref: str | None = Field(default=None, max_length=50)
+    dietary_restrictions: str | None = Field(default=None, max_length=100)
+    location: str | None = Field(default=None, max_length=100)
 
 
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True, index=True)
+    # full_name: str = Field(default=None, max_length=100)
+    # is_active: bool = Field(default=True)
+    # is_superuser: bool = Field(default=False)
+    # account_type: str = Field(default=None, max_length=50)
+    # housing_size: int = Field(default=None, ge=1, le=100)
+    # budget_pref: float = Field(default=None, ge=0.0)
+    # dietary_pref: str = Field(default=None, max_length=50)
+    # dietary_restrictions: str = Field(default=None, max_length=100)
+    # location: str = Field(default=None, max_length=100)
     hashed_password: str = Field(default=None, max_length=256)
 
 
